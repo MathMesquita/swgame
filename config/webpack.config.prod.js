@@ -10,6 +10,8 @@ var paths = require('./paths');
 var getClientEnvironment = require('./env');
 
 
+var ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -52,10 +54,14 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: 'source-map',
   // In production, we only want to load the polyfills and the app code.
-  entry: [
-    require.resolve('./polyfills'),
-    paths.appIndexJs
-  ],
+  entry: {
+    // the reason for splitting the polyfills files is that in future
+    // it's going to be removed probably, so this way when we remove it
+    // we won't change the app file hash. With async tags and defer
+    // it won't cause any performance issue on the page time loading.
+    polyfills: require.resolve('./polyfills'),
+    app: paths.appIndexJs
+  },
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -111,7 +117,8 @@ module.exports = {
           /\.(js|jsx)$/,
           /\.css$/,
           /\.json$/,
-          /\.svg$/
+          /\.svg$/,
+          /\.sass$/
         ],
         loader: 'url',
         query: {
@@ -160,9 +167,17 @@ module.exports = {
         query: {
           name: 'static/media/[name].[hash:8].[ext]'
         }
-      }
+      },
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "url" loader exclusion list.
+      {
+        test:/\.sass$/,
+        loader: ExtractTextPlugin.extract(
+          'style',
+          'css?importLoaders=1!postcss!sass',
+          extractTextPluginOptions
+        )
+      }
     ]
   },
   
@@ -180,6 +195,11 @@ module.exports = {
     ];
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "vendor",
+      minChunks: ({ resource }) => /node_modules/.test(resource),
+      filename: 'static/js/[name].[chunkhash:8].js'
+    }),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -202,6 +222,9 @@ module.exports = {
         minifyCSS: true,
         minifyURLs: true
       }
+    }),
+    new ScriptExtHtmlWebpackPlugin({
+      defaultAttribute: "defer"
     }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
