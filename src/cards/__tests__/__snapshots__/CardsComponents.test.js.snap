@@ -1,0 +1,62 @@
+exports[`test renders Card component 1`] = `
+<section
+  className="card">
+  <h2
+    className="card-title">
+    Tatooine
+  </h2>
+  <ul
+    className="card-info">
+    <li
+      className="card-infoItem">
+      <span
+        className="card-infoTitle">
+        Population
+        :
+      </span>
+      <span
+        className="card-infoData">
+        2000000
+      </span>
+    </li>
+    <li
+      className="card-infoItem">
+      <span
+        className="card-infoTitle">
+        Climate
+        :
+      </span>
+      <span
+        className="card-infoData">
+        Arid
+      </span>
+    </li>
+    <li
+      className="card-infoItem">
+      <span
+        className="card-infoTitle">
+        Terrain
+        :
+      </span>
+      <span
+        className="card-infoData">
+        Desert
+      </span>
+    </li>
+  </ul>
+  <footer
+    className="card-films">
+    featured in 
+    4
+     films
+  </footer>
+</section>
+`;
+
+exports[`test renders NextButton component 1`] = `
+<button
+  className="nextCard"
+  onClick={[Function]}>
+  next
+</button>
+`;
