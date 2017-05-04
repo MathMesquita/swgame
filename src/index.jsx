@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import CardsWrapper from './cards/CardsWrapper';
 import './index.sass';
 
 const document = global.document;
 
 ReactDOM.render(
-  <App />,
+  <CardsWrapper />,
   document.getElementById('root'),
 );
