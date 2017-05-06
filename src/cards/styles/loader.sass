@@ -1,0 +1,47 @@
+@import 'variables.sass'
+
+.loader
+  width: 39px
+  height: 39px
+  border: 2px solid $yeallow
+  border-bottom: 2px solid transparent
+  border-radius: 50%
+  position: relative
+  animation: spin 1s linear infinite
+
+  &::after
+    content: ''
+    display: block
+    position: absolute
+    border: 2px solid $yeallow
+    border-right: 2px solid transparent
+    border-left: 2px solid transparent
+    border-radius: 50% 
+    width: 24px
+    height: 24px
+    top: 50%
+    margin-top: -12px
+    left: 50%
+    margin-left: -12px
+    animation: spin 0.5s reverse linear infinite
+
+  &::before
+    content: ''
+    display: block
+    position: absolute
+    border: 2px solid $yeallow
+    border-top: 2px solid transparent
+    border-radius: 50% 
+    width: 8px
+    height: 8px
+    top: 50%
+    margin-top: -4px
+    left: 50%
+    margin-left: -4px
+    animation: spin .5s linear infinite
+
+@keyframes spin
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(360deg)
