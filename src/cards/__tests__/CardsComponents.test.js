@@ -7,7 +7,7 @@ it('renders Card component', () => {
   const card = renderer.create(
     <Card
       planet="Tatooine"
-      population={2000000}
+      population="2000000"
       climate="Arid"
       terrain="Desert"
       films={4}
@@ -18,12 +18,25 @@ it('renders Card component', () => {
 
 });
 
-import NextButton from '../NextButton';
-it('renders NextButton component', () => {
+import Button from '../Button';
+it('renders Button component', () => {
   const nextBtn = renderer.create(
-    <NextButton clickHandler={() => {}} />,
+    <Button
+      clickHandler={() => {}}
+      label="btntext"
+    />,
   );
   let tree = nextBtn.toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+import Warning from '../Warning';
+it('renders Warning component', () => {
+  const warning = renderer.create(
+    <Warning />,
+  );
+  let tree = warning.toJSON();
 
   expect(tree).toMatchSnapshot();
 });
