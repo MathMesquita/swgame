@@ -1,3 +1,11 @@
+exports[`test renders Button component 1`] = `
+<button
+  className="card-button"
+  onClick={[Function]}>
+  btntext
+</button>
+`;
+
 exports[`test renders Card component 1`] = `
 <section
   className="card">
@@ -53,10 +61,16 @@ exports[`test renders Card component 1`] = `
 </section>
 `;
 
-exports[`test renders NextButton component 1`] = `
-<button
-  className="nextCard"
-  onClick={[Function]}>
-  next
-</button>
+exports[`test renders Warning component 1`] = `
+<div
+  className="warning">
+  <h2
+    className="warning-title">
+    WOW !!!
+  </h2>
+  <p
+    className="warning-message">
+    You have passed by all the planets, how did you achieved that? Well, if you want to restart for another round, click in the button !
+  </p>
+</div>
 `;
