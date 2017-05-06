@@ -11,6 +11,8 @@ import Warning from './Warning';
 
 import cardsReducer from './reducer';
 
+import addHttpsToUrl from '../functions/addHttpsToURL';
+
 import {
   savePlanets,
   nextPlanetAction,
@@ -29,11 +31,17 @@ class CardsWrapper extends Component {
   }
 
   componentWillMount() {
-    this.fetchPlanetsData('http://swapi.co/api/planets/?page=1');
+    this.fetchPlanetsData('https://swapi.co/api/planets/?page=1');
   }
 
   fetchPlanetsData(page) {
-    fetch(page)
+    /*
+      apparently when we use recursive strategy to
+      retrieve all planets using the next page attr
+      from response, they don't send to us an https
+      url, this way we need to add it manually.
+    */
+    fetch(addHttpsToUrl(page))
       .then(response => response.json())
       .then(({ next, results }) => {
         this.props.dispatch(savePlanets(results));
