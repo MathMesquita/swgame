@@ -285,7 +285,7 @@ self.addEventListener('fetch', function(event) {
 
 // Runtime cache configuration, using the sw-toolbox library.
 
-toolbox.router.get(/^http:\/\/swapi\.co\/api/, toolbox.cacheFirst, {});
+toolbox.router.get(/^https:\/\/swapi\.co\/api/, toolbox.cacheFirst, {});
 
 
 
