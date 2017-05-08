@@ -10,6 +10,7 @@ var getClientEnvironment = require('./env');
 var paths = require('./paths');
 
 
+var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 var ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 
@@ -190,7 +191,7 @@ module.exports = {
       template: paths.appHtml,
     }),
     new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: "defer"
+      defaultAttribute: 'defer',
     }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
@@ -205,7 +206,19 @@ module.exports = {
     // to restart the development server for Webpack to discover it. This plugin
     // makes the discovery automatic so you don't have to restart.
     // See https://github.com/facebookincubator/create-react-app/issues/186
-    new WatchMissingNodeModulesPlugin(paths.appNodeModules)
+    new WatchMissingNodeModulesPlugin(paths.appNodeModules),
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'swgame',
+      filename: 'swgame-worker.js',
+      maximumFileSizeToCacheInBytes: 4194304,
+      minify: false,
+      runtimeCaching: [{
+        handler: 'cacheFirst',
+        urlPattern: /^https:\/\/swapi\.co\/api/,
+      }],
+      replacePrefix: '/',
+      stripPrefix: 'D:/swapp/build/',
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

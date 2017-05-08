@@ -9,7 +9,7 @@ var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var paths = require('./paths');
 var getClientEnvironment = require('./env');
 
-
+var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 var ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 
@@ -224,7 +224,19 @@ module.exports = {
       }
     }),
     new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: "defer"
+      defaultAttribute: 'defer',
+    }),
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'swgame',
+      filename: 'swgame-worker.js',
+      maximumFileSizeToCacheInBytes: 4194304,
+      minify: true,
+      runtimeCaching: [{
+        handler: 'cacheFirst',
+        urlPattern: /^https:\/\/swapi\.co\/api/,
+      }],
+      replacePrefix: '/swgame/',
+      stripPrefix: 'D:/swapp/build/',
     }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
