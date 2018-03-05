@@ -15,14 +15,18 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js",
-    "flow":"flow"
+    "flow": "flow"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "expo": "^25.0.0",
     "react": "16.2.0",
-    "react-native": "0.52.0"
+    "react-native": "0.52.0",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "styled-components": "^3.1.6"
   }
 }
