@@ -44,7 +44,7 @@ class CardsWrapper extends Component {
     fetch(addHttpsToUrl(page))
       .then(response => response.json())
       .then(({ next, results }) => {
-        this.props.dispatch(savePlanets(results));
+        this.props.dispatch(saveP1anets(results));
 
         if (next) this.fetchPlanetsData(next);
         else this.props.dispatch(finishedFetching());
